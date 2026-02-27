@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DiaStudio RPG</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Title Screen -->
+    <div id="screen-title" class="screen active">
+      <div class="title-box">
+        <h1 class="title-text">⚔️ DiaStudio RPG</h1>
+        <p class="subtitle">용사여, 마왕을 물리쳐라!</p>
+        <input id="player-name-input" type="text" placeholder="용사의 이름을 입력하세요" maxlength="12" />
+        <button id="start-btn" class="btn btn-primary">모험 시작</button>
+      </div>
+    </div>
+
+    <!-- Town Screen -->
+    <div id="screen-town" class="screen">
+      <div class="town-box">
+        <h2>🏘️ 마을</h2>
+        <div id="town-status" class="status-panel"></div>
+        <div class="town-menu">
+          <button id="btn-battle" class="btn btn-danger">⚔️ 전투</button>
+          <button id="btn-shop"   class="btn btn-success">🛒 상점</button>
+          <button id="btn-rest"   class="btn btn-info">🛌 휴식 (30G)</button>
+        </div>
+        <div id="town-log" class="log-box"></div>
+      </div>
+    </div>
+
+    <!-- Battle Screen -->
+    <div id="screen-battle" class="screen">
+      <div class="battle-box">
+        <div class="combatants">
+          <div class="combatant player-side">
+            <div id="player-sprite" class="sprite">🧙</div>
+            <div id="player-battle-name" class="combatant-name"></div>
+            <div id="player-hp-bar" class="hp-bar-wrap">
+              <div id="player-hp-fill" class="hp-fill player-fill"></div>
+            </div>
+            <div id="player-battle-hp" class="hp-text"></div>
+          </div>
+          <div class="combatant enemy-side">
+            <div id="enemy-sprite" class="sprite">👹</div>
+            <div id="enemy-battle-name" class="combatant-name"></div>
+            <div id="enemy-hp-bar" class="hp-bar-wrap">
+              <div id="enemy-hp-fill" class="hp-fill enemy-fill"></div>
+            </div>
+            <div id="enemy-battle-hp" class="hp-text"></div>
+          </div>
+        </div>
+
+        <div id="battle-log" class="log-box"></div>
+
+        <div id="battle-actions" class="battle-actions">
+          <button id="btn-attack"  class="btn btn-danger">⚔️ 공격</button>
+          <button id="btn-skill"   class="btn btn-warning">✨ 스킬</button>
+          <button id="btn-item"    class="btn btn-success">🧪 포션 사용</button>
+          <button id="btn-flee"    class="btn btn-secondary">🏃 도망</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shop Screen -->
+    <div id="screen-shop" class="screen">
+      <div class="shop-box">
+        <h2>🛒 상점</h2>
+        <div id="shop-gold" class="shop-gold"></div>
+        <div id="shop-items" class="shop-items"></div>
+        <button id="btn-shop-back" class="btn btn-secondary">← 마을로</button>
+      </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="screen-gameover" class="screen">
+      <div class="title-box">
+        <h2 class="dead-text">💀 게임 오버</h2>
+        <p id="gameover-msg"></p>
+        <button id="btn-retry" class="btn btn-primary">다시 시작</button>
+      </div>
+    </div>
+
+    <!-- Victory Screen -->
+    <div id="screen-victory" class="screen">
+      <div class="title-box">
+        <h2 class="victory-text">🏆 승리!</h2>
+        <p id="victory-msg"></p>
+        <button id="btn-play-again" class="btn btn-primary">처음으로</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
