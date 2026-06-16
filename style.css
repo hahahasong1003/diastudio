@@ -208,6 +208,122 @@ body {
 .shop-item-price   { font-weight: bold; color: #f0c040; margin-right: 12px; }
 .shop-item .btn    { width: auto; margin-bottom: 0; padding: 6px 14px; font-size: 0.82rem; }
 
+/* ===== Excel Summary Screen ===== */
+.excel-box {
+  background: #1a1a2e;
+  border: 2px solid #4a6fa5;
+  border-radius: 16px;
+  padding: 28px 24px;
+}
+.excel-box h2 { text-align: center; margin-bottom: 16px; font-size: 1.4rem; color: #f0c040; }
+
+.excel-drop-zone {
+  border: 2px dashed #4a6fa5;
+  border-radius: 12px;
+  padding: 28px 16px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 12px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.excel-drop-zone:hover,
+.excel-drop-zone.drag-over { border-color: #f0c040; background: #1f1f3a; }
+.excel-drop-zone p { margin-bottom: 6px; }
+.excel-hint { color: #aaa; font-size: 0.82rem; }
+
+.excel-result { display: none; margin-bottom: 12px; }
+.excel-result.visible { display: block; }
+
+.excel-file-info {
+  background: #0d0d1a;
+  border: 1px solid #2c2c4a;
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 10px;
+  font-size: 0.88rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.excel-file-info .info-label { color: #aaa; }
+.excel-file-info .info-val { color: #e8e0d0; font-weight: 600; }
+.excel-file-info .info-val.highlight { color: #f0c040; }
+
+.excel-sheet-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+.excel-tab {
+  padding: 5px 12px;
+  border: 1px solid #2c2c4a;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  background: #0d0d1a;
+  color: #aaa;
+  transition: all 0.15s;
+}
+.excel-tab:hover { border-color: #4a6fa5; color: #e8e0d0; }
+.excel-tab.active { border-color: #f0c040; color: #f0c040; background: #1f1f30; }
+
+.excel-sheet-content {
+  background: #0d0d1a;
+  border: 1px solid #2c2c4a;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.excel-section-title {
+  font-size: 0.82rem;
+  color: #aaa;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.excel-table-wrap {
+  overflow: auto;
+  max-height: 200px;
+  margin-bottom: 12px;
+  border-radius: 4px;
+}
+.excel-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.76rem;
+}
+.excel-table th,
+.excel-table td {
+  border: 1px solid #2c2c4a;
+  padding: 4px 8px;
+  text-align: left;
+  white-space: nowrap;
+}
+.excel-table th { background: #1a1a2e; color: #f0c040; font-weight: 600; }
+.excel-table tr:nth-child(even) td { background: #111125; }
+.excel-table tr:hover td { background: #1f1f3a; }
+
+.excel-stats-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.excel-stat-card {
+  background: #1a1a2e;
+  border: 1px solid #2c2c4a;
+  border-radius: 8px;
+  padding: 8px 12px;
+  min-width: 110px;
+  flex: 1;
+}
+.excel-stat-card .sc-name { color: #aaa; font-size: 0.75rem; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.excel-stat-card .sc-row { font-size: 0.72rem; }
+.excel-stat-card .sc-val { color: #f0c040; font-weight: 600; }
+
+.excel-empty { color: #aaa; text-align: center; padding: 16px; font-size: 0.85rem; }
+
 /* ===== Scrollbar ===== */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #0d0d1a; }

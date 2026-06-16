@@ -15,6 +15,25 @@
         <p class="subtitle">용사여, 마왕을 물리쳐라!</p>
         <input id="player-name-input" type="text" placeholder="용사의 이름을 입력하세요" maxlength="12" />
         <button id="start-btn" class="btn btn-primary">모험 시작</button>
+        <button id="btn-excel" class="btn btn-secondary">📊 엑셀 파일 분석기</button>
+      </div>
+    </div>
+
+    <!-- Excel Summary Screen -->
+    <div id="screen-excel" class="screen">
+      <div class="excel-box">
+        <h2>📊 엑셀 파일 분석기</h2>
+        <div id="excel-drop-zone" class="excel-drop-zone">
+          <p>📁 엑셀 파일을 드래그하거나 클릭하여 업로드</p>
+          <p class="excel-hint">.xlsx, .xls 파일 지원</p>
+          <input type="file" id="excel-file-input" accept=".xlsx,.xls" style="display:none" />
+        </div>
+        <div id="excel-result" class="excel-result">
+          <div id="excel-file-info" class="excel-file-info"></div>
+          <div id="excel-sheet-tabs" class="excel-sheet-tabs"></div>
+          <div id="excel-sheet-content" class="excel-sheet-content"></div>
+        </div>
+        <button id="btn-excel-back" class="btn btn-secondary">← 돌아가기</button>
       </div>
     </div>
 
@@ -94,6 +113,7 @@
     </div>
   </div>
 
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="game.js"></script>
 </body>
 </html>

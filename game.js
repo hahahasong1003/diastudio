@@ -406,3 +406,133 @@ $('btn-play-again').addEventListener('click', () => {
   $('player-name-input').value = '';
   showScreen('screen-title');
 });
+
+// ── Excel Summary ──────────────────────────────────────────
+let excelSheets = [];
+
+function renderExcelSheet(idx) {
+  document.querySelectorAll('.excel-tab').forEach((t, i) => {
+    t.classList.toggle('active', i === idx);
+  });
+
+  const sheet = excelSheets[idx];
+  const content = $('excel-sheet-content');
+
+  if (!sheet.data || sheet.data.length === 0) {
+    content.innerHTML = '<p class="excel-empty">데이터가 없습니다.</p>';
+    return;
+  }
+
+  const headers = sheet.data[0].map((h, i) => (h !== '' && h != null) ? String(h) : `열${i + 1}`);
+  const rows    = sheet.data.slice(1).filter(r => r.some(c => c !== '' && c != null));
+
+  // Numeric column stats
+  const numStats = headers.map((h, ci) => {
+    const vals = rows.map(r => parseFloat(r[ci])).filter(v => !isNaN(v));
+    if (vals.length === 0) return null;
+    const sum = vals.reduce((a, b) => a + b, 0);
+    const fmt = n => Number.isInteger(n) ? n : parseFloat(n.toFixed(2));
+    return { col: h, count: vals.length, min: fmt(Math.min(...vals)), max: fmt(Math.max(...vals)), avg: fmt(sum / vals.length), sum: fmt(sum) };
+  }).filter(Boolean);
+
+  const preview = rows.slice(0, 50);
+  const moreRows = rows.length > 50 ? `<span style="color:#aaa;font-size:0.72rem"> (+${rows.length - 50}행 더 있음)</span>` : '';
+
+  let html = `
+    <p class="excel-section-title">📋 데이터 미리보기 (${preview.length}행 표시 / 전체 ${rows.length}행)${moreRows}</p>
+    <div class="excel-table-wrap">
+      <table class="excel-table">
+        <thead><tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr></thead>
+        <tbody>${preview.map(r =>
+          `<tr>${headers.map((_, ci) => `<td>${r[ci] ?? ''}</td>`).join('')}</tr>`
+        ).join('')}</tbody>
+      </table>
+    </div>`;
+
+  if (numStats.length > 0) {
+    html += `<p class="excel-section-title">📊 숫자 열 통계</p>
+    <div class="excel-stats-grid">${numStats.map(s => `
+      <div class="excel-stat-card">
+        <div class="sc-name" title="${s.col}">${s.col}</div>
+        <div class="sc-row">합계 <span class="sc-val">${s.sum}</span></div>
+        <div class="sc-row">평균 <span class="sc-val">${s.avg}</span></div>
+        <div class="sc-row">최소 <span class="sc-val">${s.min}</span> / 최대 <span class="sc-val">${s.max}</span></div>
+        <div class="sc-row">개수 <span class="sc-val">${s.count}</span></div>
+      </div>`).join('')}
+    </div>`;
+  }
+
+  content.innerHTML = html;
+}
+
+function processExcelFile(file) {
+  if (!window.XLSX) {
+    alert('라이브러리 로딩 중입니다. 잠시 후 다시 시도해주세요.');
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const wb = XLSX.read(e.target.result, { type: 'array' });
+
+      excelSheets = wb.SheetNames.map(name => {
+        const ws   = wb.Sheets[name];
+        const ref  = ws['!ref'];
+        const data = ref ? XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' }) : [];
+        let rows = 0, cols = 0;
+        if (ref) {
+          const range = XLSX.utils.decode_range(ref);
+          rows = range.e.r + 1;
+          cols = range.e.c + 1;
+        }
+        return { name, rows, cols, data };
+      });
+
+      const totalRows = excelSheets.reduce((a, s) => a + Math.max(0, s.rows - 1), 0);
+
+      $('excel-file-info').innerHTML = `
+        <span class="info-label">📁 파일</span><span class="info-val highlight">${file.name}</span>
+        <span class="info-label">시트</span><span class="info-val">${excelSheets.length}개</span>
+        <span class="info-label">전체 데이터 행</span><span class="info-val">${totalRows}행</span>`;
+
+      $('excel-sheet-tabs').innerHTML = excelSheets.map((s, i) =>
+        `<button class="excel-tab${i === 0 ? ' active' : ''}" data-idx="${i}">${s.name} <span style="font-size:0.68rem;color:#888">${s.rows}×${s.cols}</span></button>`
+      ).join('');
+
+      document.querySelectorAll('.excel-tab').forEach(tab => {
+        tab.addEventListener('click', () => renderExcelSheet(parseInt(tab.dataset.idx)));
+      });
+
+      $('excel-result').classList.add('visible');
+      renderExcelSheet(0);
+    } catch {
+      alert('파일을 읽을 수 없습니다. 올바른 엑셀 파일인지 확인해주세요.');
+    }
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+const dropZone  = $('excel-drop-zone');
+const fileInput = $('excel-file-input');
+
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f) processExcelFile(f);
+});
+fileInput.addEventListener('change', () => {
+  if (fileInput.files[0]) processExcelFile(fileInput.files[0]);
+});
+
+$('btn-excel').addEventListener('click', () => {
+  excelSheets = [];
+  $('excel-result').classList.remove('visible');
+  fileInput.value = '';
+  showScreen('screen-excel');
+});
+
+$('btn-excel-back').addEventListener('click', () => showScreen('screen-title'));
