@@ -86,5 +86,4 @@ python3 scripts/variation_ledger.py rename-impact --from 카브 --to 풀 --scan 
 ## 참조 파일
 
 - `references/ledger-fields.md` — 항목별 판정 기준과 중복의 실제 사례.
-- `assets/ledger-seed.json` — 1권의 값이 들어 있는 대장 씨앗. `init --seed`가 만드는 것과 같다.
-- `scripts/variation_ledger.py` — 대장 명령.
+- `scripts/variation_ledger.py` — 대장 명령. 1권의 값 여든여섯 개가 `SEED` 상수에 들어 있으며 `init --seed`가 그것으로 대장을 만든다. 씨앗을 별도 파일로 복제하지 않는 것은 두 벌이 어긋나는 것을 막기 위해서다.
