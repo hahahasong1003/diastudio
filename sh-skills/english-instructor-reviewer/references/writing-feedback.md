@@ -44,22 +44,22 @@ python3 scripts/learner_error_lint.py essay.txt --code
 
 | 코드 | 뜻 | 예 |
 |---|---|---|
-| ART | 관사 | ~~I am student~~ |
-| NUM | 수·가산성 | ~~many informations~~ |
-| T | 시제·상 | ~~I have finished it yesterday~~ |
-| SV | 주어-동사 일치 | ~~He go~~ |
-| PREP | 전치사 | ~~discuss about~~ |
-| WW | 단어 선택 | ~~I did a mistake~~ |
-| WF | 어형 | ~~an economic growth is importance~~ |
-| COLL | 연어 | ~~do a decision~~ |
-| WO | 어순 | ~~I know what is this~~ |
-| FRAG | 문장 조각 | ~~Because it was late.~~ |
-| RO | 런온·쉼표 접속 | ~~I went, I bought~~ |
-| SP | 철자 | ~~recieve~~ |
+| ART | 관사 | I am student |
+| NUM | 수·가산성 | many informations |
+| T | 시제·상 | I have finished it yesterday |
+| SV | 주어-동사 일치 | He go |
+| PREP | 전치사 | discuss about |
+| WW | 단어 선택 | I did a mistake |
+| WF | 어형 | an economic growth is importance |
+| COLL | 연어 | do a decision |
+| WO | 어순 | I know what is this |
+| FRAG | 문장 조각 | Because it was late. |
+| RO | 런온·쉼표 접속 | I went, I bought |
+| SP | 철자 | recieve |
 | PUNC | 문장부호 | |
 | AWK | 어색함 (이유를 함께 적는다) | |
 | REP | 반복·군더더기 | |
-| ¶ | 문단을 나눌 자리 | |
+| 문단 | 문단을 나눌 자리 | |
 | ? | 뜻을 모르겠음 — 학습자에게 물음 | |
 
 **`?`를 아끼지 않는다.** 무슨 말인지 모르겠으면 짐작해서 고치지 않는다. 학습자의 의도와 다르게 고친 문장은 학습자에게 자기 글이 아니게 된다.

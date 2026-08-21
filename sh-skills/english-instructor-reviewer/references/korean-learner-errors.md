@@ -153,7 +153,6 @@
 | health (헬스장) | gym |
 | eye shopping | window shopping |
 | after service (A/S) | customer service / repair service |
-| overeat | binge eat |
 | sign (사인) | signature / autograph |
 | back number | jersey number |
 | open car | convertible |
