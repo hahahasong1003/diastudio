@@ -1,0 +1,42 @@
+{
+  "_설명": "책 집필 프로젝트의 .claude/settings.json에 아래 hooks와 env를 병합한다. 기존 설정을 덮어쓰지 말고 항목을 더한다.",
+  "env": {
+    "CAFE_BOOK_SKILLS": "${CLAUDE_PROJECT_DIR}/.claude/skills",
+    "BOOK_STATE": "book-state.json",
+    "BOOK_LEDGER": "ledger.json",
+    "MANUSCRIPT_GLOB": "manuscript/"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/session_brief.py\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/lint_on_write.py\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PROJECT_DIR}/.claude/hooks/pending_reservations.py\""
+          }
+        ]
+      }
+    ]
+  }
+}
