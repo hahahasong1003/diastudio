@@ -8,7 +8,7 @@
 import re, shutil, zipfile, os
 
 SRC = 'source/en_original.docx'
-OUT = 'corrected/The-Best-Experience-The-Best-Cafe_EN_rev4_20260823.docx'
+OUT = 'corrected/The-Best-Experience-The-Best-Cafe_EN_rev5_20260823.docx'
 
 FONT = ('<w:rFonts w:ascii="Georgia" w:cs="Georgia" w:eastAsia="Georgia" '
         'w:hAnsi="Georgia"/>')
@@ -125,9 +125,19 @@ traveler = repl(
     traveler,
     'The board updates itself every hour, and people stand in front of it for longer than they mean to.',
     'The board updates itself every hour, and people stand in front of it for longer than they mean to. '
-    'At the top of it, in larger letters, is the only word written anywhere on the building: Traveler. '
-    'It is not a place, which is the joke, and the joke is also the promise. What is on offer here is not '
-    'somewhere to arrive but somebody to be for an evening.')
+    'At the top of it, in larger letters, is the only word written anywhere on the building: Traveler.')
+
+# 창은 진짜 창이다. 화면이라는 장치를 걷어내고 바깥의 한적한 풍경을 그대로 쓴다.
+traveler = repl(
+    traveler,
+    'The window beside you shows a dark landscape sliding past.',
+    'Through the window beside you the old line runs off between the trees, and beyond it the lights of '
+    'the town lie low and steady.')
+traveler = repl(
+    traveler,
+    'The window can be a screen. The whistle can be a recording.',
+    'The view costs nothing — the old line and the trees and the town were already out there. '
+    'The whistle can be a recording.')
 for i, para in enumerate(traveler):
     if 'Orient' in ptext(para):
         traveler[i] = para.replace('Orient', 'Traveler')
@@ -136,7 +146,7 @@ assert not any('Orient' in ptext(p) for p in traveler)
 BOOK = [
     ('Leaving Without Leaving', None, [keep('Altitude'), traveler, keep('Lux')]),
     ('What Water Makes', None, [keep('Wave'), keep('Pool'), rain]),
-    ('What the Forest Offers', pieces['P3B'], [keep('Moss'), keep('Birch'), new['selva']]),
+    ('What the Forest Offers', pieces['P3B'], [keep('Moss'), keep('Birch'), new['tropical']]),
     ('Past the Atmosphere', None, [keep('Orbit'), keep('Mars'), keep('Deep Space')]),
     ('Into the Age of Paper and Ink', None, [keep('Ink'), keep('Post'), keep('Atlas')]),
     (pieces['P6H'], pieces['P6B'], [new['lemon'], new['igloo']]),
