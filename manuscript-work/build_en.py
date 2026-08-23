@@ -8,7 +8,7 @@
 import re, shutil, zipfile, os
 
 SRC = 'source/en_original.docx'
-OUT = 'corrected/The-Best-Experience-The-Best-Cafe_EN_rev3_20260822.docx'
+OUT = 'corrected/The-Best-Experience-The-Best-Cafe_EN_rev4_20260823.docx'
 
 FONT = ('<w:rFonts w:ascii="Georgia" w:cs="Georgia" w:eastAsia="Georgia" '
         'w:hAnsi="Georgia"/>')
@@ -119,10 +119,24 @@ def repl(block, before, after):
 rain = repl(keep('Rain'), 'Admission is a cup of coffee.',
             'The rain is free; the roof over it costs a cup of coffee.')
 
+# 오리엔트는 트래블러로 개명한다. 행선지 안내판에 그 이름의 뜻을 한 줄 붙인다.
+traveler = keep('Orient')
+traveler = repl(
+    traveler,
+    'The board updates itself every hour, and people stand in front of it for longer than they mean to.',
+    'The board updates itself every hour, and people stand in front of it for longer than they mean to. '
+    'At the top of it, in larger letters, is the only word written anywhere on the building: Traveler. '
+    'It is not a place, which is the joke, and the joke is also the promise. What is on offer here is not '
+    'somewhere to arrive but somebody to be for an evening.')
+for i, para in enumerate(traveler):
+    if 'Orient' in ptext(para):
+        traveler[i] = para.replace('Orient', 'Traveler')
+assert not any('Orient' in ptext(p) for p in traveler)
+
 BOOK = [
-    ('Leaving Without Leaving', None, [keep('Altitude'), keep('Orient'), keep('Lux')]),
+    ('Leaving Without Leaving', None, [keep('Altitude'), traveler, keep('Lux')]),
     ('What Water Makes', None, [keep('Wave'), keep('Pool'), rain]),
-    ('What the Forest Offers', pieces['P3B'], [keep('Moss'), keep('Birch'), new['amazon']]),
+    ('What the Forest Offers', pieces['P3B'], [keep('Moss'), keep('Birch'), new['selva']]),
     ('Past the Atmosphere', None, [keep('Orbit'), keep('Mars'), keep('Deep Space')]),
     ('Into the Age of Paper and Ink', None, [keep('Ink'), keep('Post'), keep('Atlas')]),
     (pieces['P6H'], pieces['P6B'], [new['lemon'], new['igloo']]),
